@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 
-const API = 'http://localhost:8000'
+const API = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+  ? ''
+  : 'http://localhost:8000'
 
 // ─────────────────────────────────────────
 // HISTORY ITEM COMPONENT
@@ -342,6 +344,14 @@ export default function Home() {
                 '✨ Generate Text'
               )}
             </button>
+
+            {/* Loading note */}
+            {loading && (
+              <div className="bg-blue-50 border border-blue-200
+                              rounded-2xl p-3 text-blue-700 text-sm text-center">
+                ⏳ This may take <strong>20–30 seconds</strong> — the model is generating on CPU. Please wait…
+              </div>
+            )}
 
             {/* Error */}
             {error && (
